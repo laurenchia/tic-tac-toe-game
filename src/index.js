@@ -27,9 +27,14 @@ class Board extends React.Component {
     };
     {/* Array of 9 nulls that correspond to the 9 squares */}    
   }
-  
+
   renderSquare(i) {
-    return <Square value={this.state.squares[i]}/>;
+    return (
+      <Square 
+        value={this.state.squares[i]}
+        onClick={() => this.handleClick(i)}
+      />
+    );
   }
 
   render() {
