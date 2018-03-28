@@ -3,9 +3,16 @@ import ReactDOM from 'react-dom';
 import './index.css';
 
 class Square extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state= {
+      value: null,
+    }
+  }
   render() {
     return (
-      <button className="square" onClick={() => alert('click')}>
+      <button className="square" onClick={() => alert('click')}>   
+      {/* Note that onClick has a function passed as a prop rather than onClick={alert('click')} which would trigger alert immediately instead of when btn clicked */}    
         {this.props.value}
       </button>
     );
