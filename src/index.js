@@ -11,9 +11,9 @@ class Square extends React.Component {
   }
   render() {
     return (
-      <button className="square" onClick={() => alert('click')}>   
-      {/* Note that onClick has a function passed as a prop rather than onClick={alert('click')} which would trigger alert immediately instead of when btn clicked */}    
-        {this.props.value}
+      <button className="square" onClick={() => this.setState({value: 'X'})}>   
+      {/* Note that the onClick prop has a function passed rather than onClick={alert('click')} which would trigger alert immediately instead of when btn clicked */}    
+        {this.state.value}
       </button>
     );
   }
