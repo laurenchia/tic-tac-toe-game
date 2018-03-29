@@ -2,21 +2,15 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 
-class Square extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state= {
-      value: null,
-    }
-  }
-  render() {
-    return (
-      <button className="square" onClick={() => this.props.onClick()}>   
-      {/* Note that the onClick prop has a function passed rather than onClick={alert('click')} which would trigger alert immediately instead of when btn clicked */}    
-        {this.state.value}
-      </button>
-    );
-  }
+function Square(props) {
+  return (
+    <button className="square" onClick={props.onClick}>   
+      {/* changed onClick={() => props.onClick()} to just onClick={props.onClick}, as passing the function down is enough for our example.*/}
+      {/* Note that onClick={props.onClick()} would not work because it would call props.onClick immediately instead of passing it down*/}
+      {/* Note that the onClick prop has a function passed e.g. onClick={() => alert('click')}> rather than onClick={alert('click')} which would trigger alert immediately instead of when btn clicked */}    
+      {props.value}
+    </button>
+  );
 }
 
 class Board extends React.Component {
