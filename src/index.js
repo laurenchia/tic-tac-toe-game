@@ -14,21 +14,13 @@ function Square(props) {
 }
 
 class Board extends React.Component {
-  constructor(props){
-    super(props);
-    this.state = {
-      squares: Array(9).fill(null),
-      xIsNext: true,
-    };
-    {/* Array of 9 nulls that correspond to the 9 squares */}    
-  }
-
   handleClick(i) {
     const squares = this.state.squares.slice();
+    {/* slice() helps immutability - by creating a new squares array each time a move is made, we can easily store the past board states simultaneously*/}
     if (calculateWinner(squares) || squares[i]){
       return;
     }
-    {/*Breaks if a winner square is returned or a square is returned (because it's already filled)*/}
+    {/*Breaks (no longer handles click / ultimately stops game) if a winner square is returned or a square is returned (because it's already filled)*/}
     squares[i] = this.state.xIsNext ? 'X' : 'O';
     this.setState({
       squares: squares,
@@ -47,6 +39,7 @@ class Board extends React.Component {
 
   render() {
     const winner = calculateWinner(this.state.squares);
+    {/* This calculateWinner function that passes in all the squares returns the first square of the winning 'row' */}
     let status;
     if (winner) {
       status = 'Winner: ' + winner;
@@ -77,7 +70,18 @@ class Board extends React.Component {
   }
 }
 
+{/* Game component is responsible for displaying the list of moves */}
 class Game extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      history: [{
+        squares: Array(9).fill(null),
+      }],
+      xIsNext: true;
+    }
+    {/* Array of 9 nulls that correspond to the 9 squares */}  
+  }
   render() {
     return (
       <div className="game">
