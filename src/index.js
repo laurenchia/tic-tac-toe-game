@@ -93,6 +93,7 @@ class Game extends React.Component {
     const history = this.state.history;
     const current = history[this.state.stepNumber];
     const winner = calculateWinner(current.squares);
+    // const coordinates = determineCoordinates(current.squares);
 
     const moves = history.map((step, move) => {
       const desc = move ?
@@ -104,7 +105,6 @@ class Game extends React.Component {
         </li>
       )
     });
-
 
     let status;
     if (winner) {
@@ -149,6 +149,22 @@ function calculateWinner(squares) {
     }
   }
   return null;
+}
+
+function determineCoordinates(squares) {
+  const ROW_SIZE = 3;
+  console.log(squares);
+
+  let temporal = [];
+
+  for (let i=0; i < squares.length; i+=ROW_SIZE) {
+    temporal.push(squares.slice(i,i+ROW_SIZE));
+  };
+  {/* temporal is an array of arrays (each element is a row and then column) */}
+
+  console.log(temporal);
+  console.log(temporal[0][2]); {/* e.g. first row, third column */}
+  return " (" + " ," + ")";
 }
 
 // ========================================
