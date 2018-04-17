@@ -94,13 +94,17 @@ class Game extends React.Component {
     const current = history[this.state.stepNumber];
     const winner = calculateWinner(current.squares);
 
+    {/* Array.map() creates a new array with results of calling a function on every element in the calling array */}
+    {/* In this case, array of every move button that is needed */}
     const moves = history.map((step, move) => {
       const desc = move ?
         'Go to move #' + move :
         'Go to game start';
       return (
         <li key={move}>
-          <button onClick={() => this.jumpTo(move)}>{desc}</button>
+          <button onClick={() => this.jumpTo(move)}>
+            {current ? <b>{desc}</b> : {desc} }
+          </button>
         </li>
       )
     });
