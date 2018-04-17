@@ -163,7 +163,6 @@ function isDraw(squares) {
   return "Draw!"
 }
 
-
 // ========================================
 
 ReactDOM.render(
