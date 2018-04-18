@@ -95,17 +95,31 @@ class Game extends React.Component {
     const winner = calculateWinner(current.squares);
     const draw = isDraw(current.squares);
 
+    {/* Array.map() creates a new array with results of calling a function on every element in the calling array */}
+    {/* In this case, array of every move button that is needed */}
     const moves = history.map((step, move) => {
       const desc = move ?
         'Go to move #' + move :
         'Go to game start';
-      return (
-        <li key={move}>
-          <button onClick={() => this.jumpTo(move)}>{desc}</button>
-        </li>
-      )
-    });
 
+        return (move === this.state.stepNumber) ? (
+          <li key={move}>
+            <button onClick={() => this.jumpTo(move)}>
+              <b>{desc}</b>
+            </button>
+          </li>
+        ) : (
+          <li key={move}>
+            <button onClick={() => this.jumpTo(move)}>
+              {desc}
+            </button>
+          </li>
+        );
+    });
+    {/* Ternary operator would do the same job as if else but a bit shorter :) */}
+    {/* Would get error if you had the if else where the {desc} was like I had before */}
+    {/* because it was trying to return multiple buttons of different desc types at a time */}
+    {/* Now, it evaluates the condition first and renders accordingly, forcing it to render one at a time */}
 
     let status;
     if (winner) {
