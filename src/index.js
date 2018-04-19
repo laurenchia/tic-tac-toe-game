@@ -145,7 +145,7 @@ class Game extends React.Component {
           <ol>{this.state.isAsc ? moves : moves.reverse()}</ol>
         </div>
         <div>
-          <button onClick={() => this.setState({isAsc : !this.state.isAsc})}>Re-sort</button>
+          <button onClick={() => this.setState({isAsc : !this.state.isAsc})}>{this.state.isAsc ? 'Sort by descending' : 'Sort by ascending'}</button>
         </div>
       </div>
     );
