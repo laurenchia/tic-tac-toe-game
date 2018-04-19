@@ -58,7 +58,9 @@ class Game extends React.Component {
       ],
       stepNumber: 0,
       xIsNext: true,
+      isAsc: true
     };
+
     {/* Array of 9 nulls that correspond to the 9 squares */}  
   }
 
@@ -140,7 +142,10 @@ class Game extends React.Component {
         </div>
         <div className="game-info">
           <div>{status}</div>
-          <ol>{moves}</ol>
+          <ol>{this.state.isAsc ? moves : moves.reverse()}</ol>
+        </div>
+        <div>
+          <button onClick={() => this.setState({isAsc : !this.state.isAsc})}>Re-sort</button>
         </div>
       </div>
     );
