@@ -3,25 +3,66 @@ import ReactDOM from 'react-dom';
 import './index.css';
 
 function Square(props) {
-  return (
-    <button className="square" onClick={props.onClick}>   
-      {/* changed onClick={() => props.onClick()} to just onClick={props.onClick}, as passing the function down is enough for our example.*/}
-      {/* Note that onClick={props.onClick()} would not work because it would call props.onClick immediately instead of passing it down*/}
-      {/* Note that the onClick prop has a function passed e.g. onClick={() => alert('click')}> rather than onClick={alert('click')} which would trigger alert immediately instead of when btn clicked */}    
-      {props.value}
-    </button>
-  );
+    return (
+      <button className="square" style={props.color} onClick={props.onClick}>   
+        {/* changed onClick={() => props.onClick()} to just onClick={props.onClick}, as passing the function down is enough for our example.*/}
+        {/* Note that onClick={props.onClick()} would not work because it would call props.onClick immediately instead of passing it down*/}
+        {/* Note that the onClick prop has a function passed e.g. onClick={() => alert('click')}> rather than onClick={alert('click')} which would trigger alert immediately instead of when btn clicked */}    
+        {props.value}
+      </button>
+      )
 }
 
 class Board extends React.Component {
   renderSquare(i) {
-    return (
-      <Square 
-        value={this.props.squares[i]}
-        onClick={() => this.props.onClick(i)}
-      />
-    );
+    if (this.props.winner) {
+      if (i === this.props.winner[0] || i === this.props.winner[1] || i === this.props.winner[2]) {
+        return (
+          <Square 
+          value={this.props.squares[i]}
+          squareIndex={i}
+          onClick={() => this.props.onClick(i)}
+          color={{'color': 'blue'}}
+          />
+        )
+      {/* What looks like double curly braces in 'color' is just an object literal in a prop */}
+      } else {
+          return (
+            <Square 
+              value={this.props.squares[i]}
+              squareIndex={i}
+              onClick={() => this.props.onClick(i)}
+            />
+          )  
+      {/* If you don't have this else in the if, it will render only the winning squares and not render any other squares */}
+      }
+    } 
+    else {
+      return(
+        <Square 
+          value={this.props.squares[i]}
+          squareIndex={i}
+          onClick={() => this.props.onClick(i)}
+        />
+      ) 
+    }
   }
+
+  //   return (i == this.props.winner[0] || i == this.props.winner[1] || i == this.props.winner[2]) ?
+  //   (
+  //     <Square 
+  //       value={this.props.squares[i]}
+  //       squareIndex={i}
+  //       onClick={() => this.props.onClick(i)}
+  //     />
+  //   ) : (
+  //     <Square 
+  //       value={this.props.squares[i]}
+  //       squareIndex={i}
+  //       onClick={() => this.props.onClick(i)}
+  //     />
+  //   );
+  // }
 
   render() {
     return (
@@ -125,7 +166,7 @@ class Game extends React.Component {
 
     let status;
     if (winner) {
-      status = 'Winner: ' + winner;
+      status = 'Winner: ' + current.squares[winner[0]];
     } else if (draw) {
       status = draw;
     } else {
@@ -138,6 +179,7 @@ class Game extends React.Component {
           <Board 
             squares={current.squares}
             onClick={(i) => this.handleClick(i)}
+            winner={winner}
           />
         </div>
         <div className="game-info">
@@ -167,7 +209,8 @@ function calculateWinner(squares) {
   for (let i=0; i < lines.length; i++) {
     const [a,b,c] = lines[i];
     if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
-      return squares[a];
+      {/* Winning line number */}
+      return [a, b, c];
     }
   }
   return null;
