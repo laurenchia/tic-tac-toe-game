@@ -189,7 +189,7 @@ class Game extends React.Component {
           <button onClick={() => this.setState({isAsc : !this.state.isAsc})}>{this.state.isAsc ? 'Sort by descending' : 'Sort by ascending'}</button>
         </div>
         <div>
-          {winner ? (
+          {winner || draw ? (
             <button onClick={() => this.setState({
               history: [
                 {
