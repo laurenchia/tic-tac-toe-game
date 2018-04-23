@@ -101,7 +101,6 @@ class Game extends React.Component {
       xIsNext: true,
       isAsc: true
     };
-
     {/* Array of 9 nulls that correspond to the 9 squares */}  
   }
 
@@ -191,7 +190,16 @@ class Game extends React.Component {
         </div>
         <div>
           {winner ? (
-            <button>Play Again</button>
+            <button onClick={() => this.setState({
+              history: [
+                {
+                  squares: Array(9).fill(null)
+                }
+              ],
+              stepNumber: 0,
+              xIsNext: true,
+              isAsc: true,
+            })}>Play Again</button>
           ) : (
             null
           )}
