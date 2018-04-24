@@ -53,11 +53,12 @@ class Game extends React.Component {
     this.state = {
       history: [
         {
-          squares: Array(9).fill(null)
+          squares: Array(9).fill(null),
         }
       ],
       stepNumber: 0,
       xIsNext: true,
+      coordinates: []
     };
     {/* Array of 9 nulls that correspond to the 9 squares */}  
   }
@@ -71,6 +72,9 @@ class Game extends React.Component {
       return;
     }
     {/*Breaks (no longer handles click / ultimately stops game) if a winner square is returned or a square is returned (because it's already filled)*/}
+
+    let coordinates = determineCoordinates(i);
+
     squares[i] = this.state.xIsNext ? 'X' : 'O';
     this.setState({
       history: history.concat([{
@@ -78,6 +82,7 @@ class Game extends React.Component {
       }]),
       stepNumber: history.length,
       xIsNext: !this.state.xIsNext,
+      coordinates: coordinates
     });
     {/* square -  push a new entry onto the stack by concatenating the new history entry to make a new history array. */}
   }
@@ -93,7 +98,6 @@ class Game extends React.Component {
     const history = this.state.history;
     const current = history[this.state.stepNumber];
     const winner = calculateWinner(current.squares);
-    const coordinates = determineCoordinates(i);
 
     const moves = history.map((step, move) => {
       const desc = move ?
@@ -101,7 +105,7 @@ class Game extends React.Component {
         'Go to game start';
       return (
         <li key={move}>
-          <button onClick={() => this.jumpTo(move)}>{desc}</button>
+          <button onClick={() => this.jumpTo(move)}>{desc} {this.state.coordinates}</button>
         </li>
       )
     });
@@ -171,7 +175,7 @@ function determineCoordinates(i) {
     row = 1;
   };
 
-  return " (" + row + " ," + col + ")";
+  return " (" + row + ", " + col + ")";
 }
 
 // function determineCoordinates(squares) {
