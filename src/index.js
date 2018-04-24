@@ -22,9 +22,10 @@ class Board extends React.Component {
           value={this.props.squares[i]}
           squareIndex={i}
           onClick={() => this.props.onClick(i)}
-          color={{'color': 'black'}}
+          color={{'color': '#ef3e3e'}}
           />
         )
+        
       {/* What looks like double curly braces in 'color' is just an object literal in a prop */}
       } else {
           return (
