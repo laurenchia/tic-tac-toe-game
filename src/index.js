@@ -175,7 +175,7 @@ function determineCoordinates(i) {
     row = 1;
   };
 
-  return " (" + row + ", " + col + ")";
+  return " (" + row + " , " + col + ")";
 }
 
 // function determineCoordinates(squares) {
