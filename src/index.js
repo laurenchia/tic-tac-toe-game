@@ -25,7 +25,7 @@ class Board extends React.Component {
           color={{'color': '#ef3e3e'}}
           />
         )
-        
+
       {/* What looks like double curly braces in 'color' is just an object literal in a prop */}
       } else {
           return (
@@ -145,19 +145,31 @@ class Game extends React.Component {
         'Go to move #' + move :
         'Go to game start';
 
-        return (move === this.state.stepNumber) ? (
+        return (
           <li key={move}>
-            <button onClick={() => this.jumpTo(move)}>
-              <b>{desc}</b>
-            </button>
-          </li>
-        ) : (
-          <li key={move}>
-            <button onClick={() => this.jumpTo(move)}>
-              {desc}
-            </button>
-          </li>
-        );
+             <button onClick={() => this.jumpTo(move)}>
+              {
+                (move === this.state.stepNumber) ?
+                  <b>{desc}</b> :
+                  desc
+              }
+             </button>
+           </li>
+        )
+
+        // return (move === this.state.stepNumber) ? (
+        //   <li key={move}>
+        //     <button onClick={() => this.jumpTo(move)}>
+        //       <b>{desc}</b>
+        //     </button>
+        //   </li>
+        // ) : (
+        //   <li key={move}>
+        //     <button onClick={() => this.jumpTo(move)}>
+        //       {desc}
+        //     </button>
+        //   </li>
+        // );
     });
     {/* Ternary operator would do the same job as if else but a bit shorter :) */}
     {/* Would get error if you had the if else where the {desc} was like I had before */}
@@ -184,14 +196,16 @@ class Game extends React.Component {
         </div>
         <div className="game-info">
           <div>{status}</div>
+        </div>
+        <div className="game-moves">
           <ol>{this.state.isAsc ? moves : moves.reverse()}</ol>
         </div>
-        <div>
+        <div className="moves-sort">
           <button onClick={() => this.setState({isAsc : !this.state.isAsc})}>{this.state.isAsc ? 'Sort by descending' : 'Sort by ascending'}</button>
         </div>
-        <div>
+        <div className="play-again-button">
           {winner || draw ? (
-            <button onClick={() => this.setState({
+            <button className="play-again" onClick={() => this.setState({
               history: [
                 {
                   squares: Array(9).fill(null)
@@ -200,7 +214,7 @@ class Game extends React.Component {
               stepNumber: 0,
               xIsNext: true,
               isAsc: true,
-            })}>Play Again</button>
+            })}>Play Again?</button>
           ) : (
             null
           )}
