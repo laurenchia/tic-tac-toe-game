@@ -76,6 +76,10 @@ ol, ul {
   -webkit-transform: translate(0, 4px);
   -moz-transform: translate(0, 4px);
   transform: translate(0, 4px);
+
+  -webkit-transition: all .03s ease-in-out;
+  -moz-transition: all .05s ease-in-out;
+  transition: all .05s ease-in-out;
 }
 
 .square:focus {
