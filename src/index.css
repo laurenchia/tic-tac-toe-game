@@ -30,14 +30,14 @@ ol, ul {
   border: 1px solid #5acedd;
   float: left;
   color: white;
-  font: 24px "Comic Sans MS", cursive, sans-serif;
+  font: 75px "Comic Sans MS", cursive, sans-serif;
   font-weight: bold;
-  line-height: 34px;
-  height: 34px;
+  line-height: 100px;
+  height: 100px;
   margin: 2px;
   padding: 0;
   text-align: center;
-  width: 34px;
+  width: 100px;
 
   /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#a4d6dd+0,5acedd+50,00c2e0+100 */
   background: #a4d6dd; /* Old browsers */
