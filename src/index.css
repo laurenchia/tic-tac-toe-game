@@ -52,6 +52,11 @@ ol, ul {
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   border-radius: 5px;
+
+  /* 3D effect */
+  -webkit-box-shadow: 0px 6px 0px #5acedd;
+  -moz-box-shadow: 0px 6px 0px #5acedd;
+  box-shadow: 0px 6px 0px #5acedd;
 }
 
 .square:focus {
