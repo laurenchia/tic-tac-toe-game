@@ -21,7 +21,8 @@ ol, ul {
   background: #fff;
   border: 1px solid #999;
   float: left;
-  font-size: 24px;
+  color: white;
+  font: 24px "Comic Sans MS", cursive, sans-serif;
   font-weight: bold;
   line-height: 34px;
   height: 34px;
@@ -30,6 +31,13 @@ ol, ul {
   padding: 0;
   text-align: center;
   width: 34px;
+
+  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#a4d6dd+0,5acedd+50,00c2e0+100 */
+  background: #a4d6dd; /* Old browsers */
+  background: -moz-linear-gradient(top, #a4d6dd 0%, #5acedd 50%, #00c2e0 100%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(top, #a4d6dd 0%,#5acedd 50%,#00c2e0 100%); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom, #a4d6dd 0%,#5acedd 50%,#00c2e0 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a4d6dd', endColorstr='#00c2e0',GradientType=0 ); /* IE6-9 */
 }
 
 .square:focus {
