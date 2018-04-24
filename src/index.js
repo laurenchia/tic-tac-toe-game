@@ -93,7 +93,7 @@ class Game extends React.Component {
     const history = this.state.history;
     const current = history[this.state.stepNumber];
     const winner = calculateWinner(current.squares);
-    // const coordinates = determineCoordinates(current.squares);
+    const coordinates = determineCoordinates(i);
 
     const moves = history.map((step, move) => {
       const desc = move ?
@@ -151,21 +151,44 @@ function calculateWinner(squares) {
   return null;
 }
 
-function determineCoordinates(squares) {
-  const ROW_SIZE = 3;
-  console.log(squares);
+function determineCoordinates(i) {
+  let col = (i % 3) + 1;
+  let row;
 
-  let temporal = [];
+  /* Handling 0 index */
+  if (i === 0) {
+    row = 1;
+    col = 1;
+  }
 
-  for (let i=0; i < squares.length; i+=ROW_SIZE) {
-    temporal.push(squares.slice(i,i+ROW_SIZE));
+  if (Math.floor(i / 3) === 0) {
+    row = 1;
+  } else if (Math.floor(i / 3) === 1) {
+    row = 2;
+  } else if (Math.floor(i / 3) === 2){
+    row = 3;
+  } else {
+    row = 1;
   };
-  {/* temporal is an array of arrays (each element is a row and then column) */}
 
-  console.log(temporal);
-  console.log(temporal[0][2]); {/* e.g. first row, third column */}
-  return " (" + " ," + ")";
+  return " (" + row + " ," + col + ")";
 }
+
+// function determineCoordinates(squares) {
+//   const ROW_SIZE = 3;
+//   console.log(squares);
+
+//   let temporal = [];
+
+//   for (let i=0; i < squares.length; i+=ROW_SIZE) {
+//     temporal.push(squares.slice(i,i+ROW_SIZE));
+//   };
+//   {/* temporal is an array of arrays (each element is a row and then column) */}
+
+//   console.log(temporal);
+//   console.log(temporal[0][2]); {/* e.g. first row, third column */}
+//   return " (" + " ," + ")";
+// }
 
 // ========================================
 
