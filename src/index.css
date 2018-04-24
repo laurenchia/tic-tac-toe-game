@@ -27,14 +27,14 @@ ol, ul {
 
 .square {
   background: #fff;
-  border: 1px solid #5acedd;
+  border: 1px solid #00B2D6;
   float: left;
   color: white;
   font: 75px "Comic Sans MS", cursive, sans-serif;
   font-weight: bold;
   line-height: 100px;
   height: 100px;
-  margin: 2px;
+  margin: 5px;
   padding: 0;
   text-align: center;
   width: 100px;
@@ -53,10 +53,10 @@ ol, ul {
   -moz-border-radius: 5px;
   border-radius: 5px;
 
-  /* 3D effect */
-  -webkit-box-shadow: 0px 6px 0px #5acedd;
-  -moz-box-shadow: 0px 6px 0px #5acedd;
-  box-shadow: 0px 6px 0px #5acedd;
+  /* 3D effect and second shadow */)
+  -webkit-box-shadow: 0px 6px 0px #00B2D6, 0px 3px 15px rgba(0,0,0,.4);
+  -moz-box-shadow: 0px 6px 0px #00B2D6, 0px 3px 15px rgba(0,0,0,.4);
+  box-shadow: 0px 6px 0px #00B2D6, 0px 3px 15px rgba(0,0,0,.4);
 }
 
 .square:focus {
