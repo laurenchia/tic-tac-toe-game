@@ -38,6 +38,8 @@ ol, ul {
   padding: 0;
   text-align: center;
   width: 100px;
+  /* Makes X and Os look receded */
+  text-shadow: 0px -1px 0px rgba(0,0,0,.5);
 
   /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#a4d6dd+0,5acedd+50,00c2e0+100 */
   background: #a4d6dd; /* Old browsers */
