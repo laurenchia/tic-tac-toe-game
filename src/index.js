@@ -64,10 +64,12 @@ class Game extends React.Component {
   }
 
   handleClick(i) {
+    {/* slice() helps immutability - by creating a new squares array each time a move is made, we can easily store the past board states simultaneously*/}
+    {/* slice(begin, end) of extraction */}
     const history = this.state.history.slice(0, this.state.stepNumber + 1);
     const current = history[history.length - 1];
     const squares = current.squares.slice();
-    {/* slice() helps immutability - by creating a new squares array each time a move is made, we can easily store the past board states simultaneously*/}
+
     if (calculateWinner(squares) || squares[i]){
       return;
     }
@@ -85,6 +87,7 @@ class Game extends React.Component {
       coordinates: coordinates
     });
     {/* square -  push a new entry onto the stack by concatenating the new history entry to make a new history array. */}
+    {/* concat merges two or more arrays, instead of altering existing arrays, makes new array */}
   }
 
   jumpTo(step) {
