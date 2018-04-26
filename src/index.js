@@ -54,11 +54,11 @@ class Game extends React.Component {
       history: [
         {
           squares: Array(9).fill(null),
+          coords: [null]
         }
       ],
       stepNumber: 0,
       xIsNext: true,
-      coordinates: []
     };
     {/* Array of 9 nulls that correspond to the 9 squares */}  
   }
@@ -69,22 +69,25 @@ class Game extends React.Component {
     const history = this.state.history.slice(0, this.state.stepNumber + 1);
     const current = history[history.length - 1];
     const squares = current.squares.slice();
+    const coords = current.coords.slice();
+    console.log('squares ' + current.squares);
+    console.log('coords ' + current.coords);
 
     if (calculateWinner(squares) || squares[i]){
       return;
     }
     {/*Breaks (no longer handles click / ultimately stops game) if a winner square is returned or a square is returned (because it's already filled)*/}
-
-    let coordinates = determineCoordinates(i);
-
+    
     squares[i] = this.state.xIsNext ? 'X' : 'O';
+    console.log('coordinates value ' + coords);
+
     this.setState({
       history: history.concat([{
         squares: squares,
+        coords: coords.concat(determineCoordinates(i))
       }]),
       stepNumber: history.length,
       xIsNext: !this.state.xIsNext,
-      coordinates: coordinates
     });
     {/* square -  push a new entry onto the stack by concatenating the new history entry to make a new history array. */}
     {/* concat merges two or more arrays, instead of altering existing arrays, makes new array */}
@@ -108,10 +111,12 @@ class Game extends React.Component {
         'Go to game start';
       return (
         <li key={move}>
-          <button onClick={() => this.jumpTo(move)}>{desc} {this.state.coordinates}</button>
+          <button onClick={() => this.jumpTo(move)}>{desc} {this.state.history.map(move => move.coords[move.coords.length-1])}</button>
         </li>
       )
     });
+
+    {/* console.log('all move.coords: ' + move.coords + 'last move.coords: ' + move.coords[move.coords.length-1]) */}
 
     let status;
     if (winner) {
