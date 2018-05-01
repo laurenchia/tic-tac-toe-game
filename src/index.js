@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
+import sortDesc from './images/sort-descending.png';
+import sortAsc from './images/sort-ascending.png';
 
 function Square(props) {
     return (
@@ -179,9 +181,14 @@ class Game extends React.Component {
         </div>
         <div className="game-info">
           <div className="game-status">{status}</div>
-          <button className="sort-button" onClick={() => this.setState({isAsc : !this.state.isAsc})}>{this.state.isAsc ? 'Sort by descending' : 'Sort by ascending'}</button>
+          <span>Sort by:  </span>
+          <button className="sort-button" onClick={() => this.setState({isAsc : !this.state.isAsc})}> {this.state.isAsc ? 
+            <img src={sortDesc} alt="Sort by descending"  /> : 
+            <img src={sortAsc} alt="Sort by ascending"    /> }
+          </button>
           <ol id="moves-list">{this.state.isAsc ? moves : moves.reverse()}</ol>
         </div>
+
         <div className="play-again-button">
           {winner || draw ? (
             <button className="play-again" onClick={() => this.setState({

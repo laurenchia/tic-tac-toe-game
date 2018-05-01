@@ -7,6 +7,10 @@ ol, ul {
   padding-left: 30px;
 }
 
+button {
+  cursor: pointer;
+}
+
 .game-board {
   position: fixed;
   top: 50%;
@@ -106,6 +110,12 @@ ol, ul {
 .game-status {
   margin-bottom: 30%;
   font-size: 30px;
+  color: #ef3e3e;
+}
+
+.sort-button {
+  border: none;
+  background: none;
 }
 
 .play-again {
