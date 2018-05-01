@@ -196,7 +196,8 @@ class Game extends React.Component {
             <button onClick={() => this.setState({
               history: [
                 {
-                  squares: Array(9).fill(null)
+                  squares: Array(9).fill(null),
+                  coords: []
                 }
               ],
               stepNumber: 0,
