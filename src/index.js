@@ -156,25 +156,8 @@ class Game extends React.Component {
              </button>
            </li>
         )
-
-        // return (move === this.state.stepNumber) ? (
-        //   <li key={move}>
-        //     <button onClick={() => this.jumpTo(move)}>
-        //       <b>{desc}</b>
-        //     </button>
-        //   </li>
-        // ) : (
-        //   <li key={move}>
-        //     <button onClick={() => this.jumpTo(move)}>
-        //       {desc}
-        //     </button>
-        //   </li>
-        // );
     });
-    {/* Ternary operator would do the same job as if else but a bit shorter :) */}
-    {/* Would get error if you had the if else where the {desc} was like I had before */}
-    {/* because it was trying to return multiple buttons of different desc types at a time */}
-    {/* Now, it evaluates the condition first and renders accordingly, forcing it to render one at a time */}
+    {/* Note plain desc does NOT need { } because it is already in JS, the bold one is in JSX so it needs { } to access JS */}
 
     let status;
     if (winner) {
