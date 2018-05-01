@@ -110,15 +110,16 @@ class Game extends React.Component {
         'Go to move #' + move :
         'Go to game start';
       const coordinates = history.map(move => move.coords[move.coords.length-1]);
+      {/* Move ^ is an index so it is like saying history[i].coords which is why move.coords works */}
+      {/* [move.coords.length-1] accesses the last value of the coords array (but it still appends to previous 'last' coord values*/}
 
       return (
         <li key={move}>
           <button onClick={() => this.jumpTo(move)}>{desc} {coordinates[coordinates.length-1]}</button>
         </li>
       )
+      {/* [coordinates.length-1] is to get the last value of the history array (stored in coordinates) */}
     });
-
-    {/* console.log('all move.coords: ' + move.coords + 'last move.coords: ' + move.coords[move.coords.length-1]) */}
 
     let status;
     if (winner) {
