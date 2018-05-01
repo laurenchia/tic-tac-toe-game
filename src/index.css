@@ -128,7 +128,8 @@ button {
 }
 
 .play-again-button {
-  margin:auto;  
+  margin: auto;  
   position: fixed;
-  margin-left: 42%;
+  margin-left: 75%;
+  margin-top: 20%;
 }
