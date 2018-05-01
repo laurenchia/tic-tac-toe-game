@@ -3,25 +3,66 @@ import ReactDOM from 'react-dom';
 import './index.css';
 
 function Square(props) {
-  return (
-    <button className="square" onClick={props.onClick}>   
-      {/* changed onClick={() => props.onClick()} to just onClick={props.onClick}, as passing the function down is enough for our example.*/}
-      {/* Note that onClick={props.onClick()} would not work because it would call props.onClick immediately instead of passing it down*/}
-      {/* Note that the onClick prop has a function passed e.g. onClick={() => alert('click')}> rather than onClick={alert('click')} which would trigger alert immediately instead of when btn clicked */}    
-      {props.value}
-    </button>
-  );
+    return (
+      <button className="square" style={props.color} onClick={props.onClick}>   
+        {/* changed onClick={() => props.onClick()} to just onClick={props.onClick}, as passing the function down is enough for our example.*/}
+        {/* Note that onClick={props.onClick()} would not work because it would call props.onClick immediately instead of passing it down*/}
+        {/* Note that the onClick prop has a function passed e.g. onClick={() => alert('click')}> rather than onClick={alert('click')} which would trigger alert immediately instead of when btn clicked */}    
+        {props.value}
+      </button>
+      )
 }
 
 class Board extends React.Component {
   renderSquare(i) {
-    return (
-      <Square 
-        value={this.props.squares[i]}
-        onClick={() => this.props.onClick(i)}
-      />
-    );
+    if (this.props.winner) {
+      if (i === this.props.winner[0] || i === this.props.winner[1] || i === this.props.winner[2]) {
+        return (
+          <Square 
+          value={this.props.squares[i]}
+          squareIndex={i}
+          onClick={() => this.props.onClick(i)}
+          color={{'color': 'blue'}}
+          />
+        )
+      {/* What looks like double curly braces in 'color' is just an object literal in a prop */}
+      } else {
+          return (
+            <Square 
+              value={this.props.squares[i]}
+              squareIndex={i}
+              onClick={() => this.props.onClick(i)}
+            />
+          )  
+      {/* If you don't have this else in the if, it will render only the winning squares and not render any other squares */}
+      }
+    } 
+    else {
+      return(
+        <Square 
+          value={this.props.squares[i]}
+          squareIndex={i}
+          onClick={() => this.props.onClick(i)}
+        />
+      ) 
+    }
   }
+
+  //   return (i == this.props.winner[0] || i == this.props.winner[1] || i == this.props.winner[2]) ?
+  //   (
+  //     <Square 
+  //       value={this.props.squares[i]}
+  //       squareIndex={i}
+  //       onClick={() => this.props.onClick(i)}
+  //     />
+  //   ) : (
+  //     <Square 
+  //       value={this.props.squares[i]}
+  //       squareIndex={i}
+  //       onClick={() => this.props.onClick(i)}
+  //     />
+  //   );
+  // }
 
   render() {
     return (
@@ -59,6 +100,7 @@ class Game extends React.Component {
       ],
       stepNumber: 0,
       xIsNext: true,
+      isAsc: true
     };
     {/* Array of 9 nulls that correspond to the 9 squares */}  
   }
@@ -104,7 +146,10 @@ class Game extends React.Component {
     const history = this.state.history;
     const current = history[this.state.stepNumber];
     const winner = calculateWinner(current.squares);
+    const draw = isDraw(current.squares);
 
+    {/* Array.map() creates a new array with results of calling a function on every element in the calling array */}
+    {/* In this case, array of every move button that is needed */}
     const moves = history.map((step, move) => {
       const desc = move ?
         'Go to move #' + move :
@@ -123,7 +168,9 @@ class Game extends React.Component {
 
     let status;
     if (winner) {
-      status = 'Winner: ' + winner;
+      status = 'Winner: ' + current.squares[winner[0]];
+    } else if (draw) {
+      status = draw;
     } else {
       status = 'Next player: ' + (this.state.xIsNext ? 'X' : 'O');
     }
@@ -134,11 +181,31 @@ class Game extends React.Component {
           <Board 
             squares={current.squares}
             onClick={(i) => this.handleClick(i)}
+            winner={winner}
           />
         </div>
         <div className="game-info">
           <div>{status}</div>
-          <ol>{moves}</ol>
+          <ol>{this.state.isAsc ? moves : moves.reverse()}</ol>
+        </div>
+        <div>
+          <button onClick={() => this.setState({isAsc : !this.state.isAsc})}>{this.state.isAsc ? 'Sort by descending' : 'Sort by ascending'}</button>
+        </div>
+        <div>
+          {winner || draw ? (
+            <button onClick={() => this.setState({
+              history: [
+                {
+                  squares: Array(9).fill(null)
+                }
+              ],
+              stepNumber: 0,
+              xIsNext: true,
+              isAsc: true,
+            })}>Play Again</button>
+          ) : (
+            null
+          )}
         </div>
       </div>
     );
@@ -160,7 +227,8 @@ function calculateWinner(squares) {
   for (let i=0; i < lines.length; i++) {
     const [a,b,c] = lines[i];
     if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
-      return squares[a];
+      {/* Winning line number */}
+      return [a, b, c];
     }
   }
   return null;
@@ -189,23 +257,14 @@ function determineCoordinates(i) {
   return " (" + row + " , " + col + ")";
 }
 
-// function determineCoordinates(squares) {
-//   const ROW_SIZE = 3;
-//   console.log(squares);
-
-//   let temporal = [];
-
-//   for (let i=0; i < squares.length; i+=ROW_SIZE) {
-//     temporal.push(squares.slice(i,i+ROW_SIZE));
-//   };
-//   {/* temporal is an array of arrays (each element is a row and then column) */}
-
-//   console.log(temporal);
-//   console.log(temporal[0][2]); {/* e.g. first row, third column */}
-//   return " (" + " ," + ")";
-// }
-
-// ========================================
+function isDraw(squares) {
+  for (let i=0; i < squares.length; i++) {
+    if (!squares[i]) {
+      return null;
+    }
+  }
+  return "Draw!"
+}
 
 ReactDOM.render(
   <Game />,
