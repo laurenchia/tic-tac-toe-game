@@ -154,7 +154,7 @@ class Game extends React.Component {
                   desc
               }
              </button>
-           </li>
+          </li>
         )
     });
     {/* Note plain desc does NOT need { } because it is already in JS, the bold one is in JSX so it needs { } to access JS */}
@@ -178,13 +178,9 @@ class Game extends React.Component {
           />
         </div>
         <div className="game-info">
-          <div>{status}</div>
-        </div>
-        <div className="game-moves">
-          <ol>{this.state.isAsc ? moves : moves.reverse()}</ol>
-        </div>
-        <div className="moves-sort">
-          <button onClick={() => this.setState({isAsc : !this.state.isAsc})}>{this.state.isAsc ? 'Sort by descending' : 'Sort by ascending'}</button>
+          <div className="game-status">{status}</div>
+          <button className="sort-button" onClick={() => this.setState({isAsc : !this.state.isAsc})}>{this.state.isAsc ? 'Sort by descending' : 'Sort by ascending'}</button>
+          <ol id="moves-list">{this.state.isAsc ? moves : moves.reverse()}</ol>
         </div>
         <div className="play-again-button">
           {winner || draw ? (
