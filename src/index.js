@@ -109,9 +109,11 @@ class Game extends React.Component {
       const desc = move ?
         'Go to move #' + move :
         'Go to game start';
+      const coordinates = history.map(move => move.coords[move.coords.length-1]);
+
       return (
         <li key={move}>
-          <button onClick={() => this.jumpTo(move)}>{desc} {this.state.history.map(move => move.coords[move.coords.length-1])}</button>
+          <button onClick={() => this.jumpTo(move)}>{desc} {coordinates[coordinates.length-1]}</button>
         </li>
       )
     });
