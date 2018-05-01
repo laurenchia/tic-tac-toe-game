@@ -122,6 +122,15 @@ button {
   background: none;
 }
 
+.move-buttons {
+  padding: 8px;
+  background-color: white;
+  color: #ef3e3e;
+  border-radius: 20px;
+  border-color: #ef3e3e;
+  font-weight: bold;
+}
+
 .play-again {
   color: white;
   background: #ef3e3e;
