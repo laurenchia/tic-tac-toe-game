@@ -173,6 +173,7 @@ class Game extends React.Component {
     return (
       <div className="game">
         <div className="game-board">
+          <div className="game-status">{status}</div>
           <Board 
             squares={current.squares}
             onClick={(i) => this.handleClick(i)}
@@ -180,7 +181,6 @@ class Game extends React.Component {
           />
         </div>
         <div className="game-info">
-          <div className="game-status">{status}</div>
           <span>Sort by:  </span>
           <button className="sort-button" onClick={() => this.setState({isAsc : !this.state.isAsc})}> {this.state.isAsc ? 
             <img src={sortDesc} alt="Sort by descending"  /> : 

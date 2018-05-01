@@ -103,12 +103,16 @@ button {
 .game-info {
   font-size: 20px;
   display: block;
-  margin-left: 10%;
-  margin-top: 5%;
+  margin-top: 8%;
+  margin-left: 120px;
+  float: left;
 }
 
 .game-status {
-  margin-bottom: 50px;
+  margin: auto;
+  margin-bottom: 30px;
+  margin-top: -30px;
+  text-align: center;
   font-size: 30px;
   color: #ef3e3e;
 }
