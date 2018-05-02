@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
+import sortDesc from './images/sort-descending.png';
+import sortAsc from './images/sort-ascending.png';
 
 function Square(props) {
     return (
@@ -22,9 +24,10 @@ class Board extends React.Component {
           value={this.props.squares[i]}
           squareIndex={i}
           onClick={() => this.props.onClick(i)}
-          color={{'color': 'blue'}}
+          color={{'color': '#ef3e3e'}}
           />
         )
+
       {/* What looks like double curly braces in 'color' is just an object literal in a prop */}
       } else {
           return (
@@ -47,22 +50,6 @@ class Board extends React.Component {
       ) 
     }
   }
-
-  //   return (i == this.props.winner[0] || i == this.props.winner[1] || i == this.props.winner[2]) ?
-  //   (
-  //     <Square 
-  //       value={this.props.squares[i]}
-  //       squareIndex={i}
-  //       onClick={() => this.props.onClick(i)}
-  //     />
-  //   ) : (
-  //     <Square 
-  //       value={this.props.squares[i]}
-  //       squareIndex={i}
-  //       onClick={() => this.props.onClick(i)}
-  //     />
-  //   );
-  // }
 
   render() {
     return (
@@ -157,14 +144,17 @@ class Game extends React.Component {
       const coordinates = history.map(move => move.coords[move.coords.length-1]);
       {/* Move ^ is an index so it is like saying history[i].coords which is why move.coords works */}
       {/* [move.coords.length-1] accesses the last value of the coords array (but still appends to previous 'last' coord values if you display coordinates)*/}
-
+       
       return (
         <li key={move}>
-          <button onClick={() => this.jumpTo(move)}>{desc} {coordinates[move]}</button>
+          <button className="move-buttons" id={(move === this.state.stepNumber) ? "current-move" : "not-current-move" } onClick={() => this.jumpTo(move)}>
+            {desc} {coordinates[move]}
+          </button>
         </li>
       )
-      {/* coordinates[move] shows the last value of the coord array at that move index, move index is what makes each li independent of each other */}
     });
+    {/* Note plain desc does NOT need { } because it is already in JS, the bold one is in JSX so it needs { } to access JS */}
+    {/* coordinates[move] shows the last value of the coord array at that move index, move index is what makes each li independent of each other */}
 
     let status;
     if (winner) {
@@ -178,6 +168,7 @@ class Game extends React.Component {
     return (
       <div className="game">
         <div className="game-board">
+          <div className="game-status">{status}</div>
           <Board 
             squares={current.squares}
             onClick={(i) => this.handleClick(i)}
@@ -185,15 +176,17 @@ class Game extends React.Component {
           />
         </div>
         <div className="game-info">
-          <div>{status}</div>
-          <ol>{this.state.isAsc ? moves : moves.reverse()}</ol>
+          <span>Sort by:  </span>
+          <button className="sort-button" onClick={() => this.setState({isAsc : !this.state.isAsc})}> {this.state.isAsc ? 
+            <img src={sortDesc} alt="Sort by descending"  /> : 
+            <img src={sortAsc} alt="Sort by ascending"    /> }
+          </button>
+          <ol className="moves-list">{this.state.isAsc ? moves : moves.reverse()}</ol>
         </div>
-        <div>
-          <button onClick={() => this.setState({isAsc : !this.state.isAsc})}>{this.state.isAsc ? 'Sort by descending' : 'Sort by ascending'}</button>
-        </div>
-        <div>
+
+        <div className="play-again-button">
           {winner || draw ? (
-            <button onClick={() => this.setState({
+            <button className="play-again" onClick={() => this.setState({
               history: [
                 {
                   squares: Array(9).fill(null),
@@ -203,7 +196,7 @@ class Game extends React.Component {
               stepNumber: 0,
               xIsNext: true,
               isAsc: true,
-            })}>Play Again</button>
+            })}>Play Again?</button>
           ) : (
             null
           )}
