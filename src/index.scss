@@ -132,9 +132,11 @@ li {
   color: #ef3e3e;
   border-radius: 20px;
   border-color: #ef3e3e;
-  font-weight: bold;
   white-space: nowrap;
   overflow: hidden;
+  span {
+      font-weight: bold;
+  }
 }
 
 .moves-list {

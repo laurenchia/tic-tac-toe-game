@@ -152,7 +152,7 @@ class Game extends React.Component {
              <button className="move-buttons" onClick={() => this.jumpTo(move)}>
               {
                 (move === this.state.stepNumber) ?
-                  <b>{desc}</b> :
+                  <span>{desc}</span> :
                   desc
               }
              </button>
