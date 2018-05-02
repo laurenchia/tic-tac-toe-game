@@ -51,22 +51,6 @@ class Board extends React.Component {
     }
   }
 
-  //   return (i == this.props.winner[0] || i == this.props.winner[1] || i == this.props.winner[2]) ?
-  //   (
-  //     <Square 
-  //       value={this.props.squares[i]}
-  //       squareIndex={i}
-  //       onClick={() => this.props.onClick(i)}
-  //     />
-  //   ) : (
-  //     <Square 
-  //       value={this.props.squares[i]}
-  //       squareIndex={i}
-  //       onClick={() => this.props.onClick(i)}
-  //     />
-  //   );
-  // }
-
   render() {
     return (
       <div>
@@ -97,7 +81,8 @@ class Game extends React.Component {
     this.state = {
       history: [
         {
-          squares: Array(9).fill(null)
+          squares: Array(9).fill(null),
+          coords: []
         }
       ],
       stepNumber: 0,
@@ -108,23 +93,33 @@ class Game extends React.Component {
   }
 
   handleClick(i) {
+    {/* slice() helps immutability - by creating a new squares array each time a move is made, we can easily store the past board states simultaneously*/}
+    {/* slice(begin, end) of extraction */}
     const history = this.state.history.slice(0, this.state.stepNumber + 1);
     const current = history[history.length - 1];
     const squares = current.squares.slice();
-    {/* slice() helps immutability - by creating a new squares array each time a move is made, we can easily store the past board states simultaneously*/}
+    const coords = current.coords.slice();
+    console.log('squares ' + current.squares);
+    console.log('coords ' + current.coords);
+
     if (calculateWinner(squares) || squares[i]){
       return;
     }
     {/*Breaks (no longer handles click / ultimately stops game) if a winner square is returned or a square is returned (because it's already filled)*/}
+    
     squares[i] = this.state.xIsNext ? 'X' : 'O';
+    console.log('coordinates value ' + coords);
+
     this.setState({
       history: history.concat([{
         squares: squares,
+        coords: coords.concat(determineCoordinates(i))
       }]),
       stepNumber: history.length,
       xIsNext: !this.state.xIsNext,
     });
     {/* square -  push a new entry onto the stack by concatenating the new history entry to make a new history array. */}
+    {/* concat merges two or more arrays, instead of altering existing arrays, makes new array */}
   }
 
   jumpTo(step) {
@@ -146,27 +141,20 @@ class Game extends React.Component {
       const desc = move ?
         'Go to move #' + move :
         'Go to game start';
-
-        // return (
-        //   <li key={move}>
-        //      <button className="move-buttons" onClick={() => this.jumpTo(move)}>
-        //       {
-        //         (move === this.state.stepNumber) ?
-        //           <span>{desc}</span> :
-        //           desc
-        //       }
-        //      </button>
-        //   </li>
-        // )
-        return (
-          <li key={move}>
-            <button className="move-buttons" id={(move === this.state.stepNumber) ? "current-move" : "not-current-move" } onClick={() => this.jumpTo(move)}>
-              {desc}
-            </button>
-          </li>
-        )
+      const coordinates = history.map(move => move.coords[move.coords.length-1]);
+      {/* Move ^ is an index so it is like saying history[i].coords which is why move.coords works */}
+      {/* [move.coords.length-1] accesses the last value of the coords array (but still appends to previous 'last' coord values if you display coordinates)*/}
+       
+      return (
+        <li key={move}>
+          <button className="move-buttons" id={(move === this.state.stepNumber) ? "current-move" : "not-current-move" } onClick={() => this.jumpTo(move)}>
+            {desc} {coordinates[move]}
+          </button>
+        </li>
+      )
     });
     {/* Note plain desc does NOT need { } because it is already in JS, the bold one is in JSX so it needs { } to access JS */}
+    {/* coordinates[move] shows the last value of the coord array at that move index, move index is what makes each li independent of each other */}
 
     let status;
     if (winner) {
@@ -201,7 +189,8 @@ class Game extends React.Component {
             <button className="play-again" onClick={() => this.setState({
               history: [
                 {
-                  squares: Array(9).fill(null)
+                  squares: Array(9).fill(null),
+                  coords: []
                 }
               ],
               stepNumber: 0,
@@ -239,6 +228,29 @@ function calculateWinner(squares) {
   return null;
 }
 
+function determineCoordinates(i) {
+  let col = (i % 3) + 1;
+  let row;
+
+  /* Handling 0 index */
+  if (i === 0) {
+    row = 1;
+    col = 1;
+  }
+
+  if (Math.floor(i / 3) === 0) {
+    row = 1;
+  } else if (Math.floor(i / 3) === 1) {
+    row = 2;
+  } else if (Math.floor(i / 3) === 2){
+    row = 3;
+  } else {
+    row = 1;
+  };
+
+  return " (" + row + " , " + col + ")";
+}
+
 function isDraw(squares) {
   for (let i=0; i < squares.length; i++) {
     if (!squares[i]) {
@@ -247,8 +259,6 @@ function isDraw(squares) {
   }
   return "Draw!"
 }
-
-// ========================================
 
 ReactDOM.render(
   <Game />,
