@@ -186,7 +186,7 @@ class Game extends React.Component {
             <img src={sortDesc} alt="Sort by descending"  /> : 
             <img src={sortAsc} alt="Sort by ascending"    /> }
           </button>
-          <ol id="moves-list">{this.state.isAsc ? moves : moves.reverse()}</ol>
+          <ol className="moves-list">{this.state.isAsc ? moves : moves.reverse()}</ol>
         </div>
 
         <div className="play-again-button">
