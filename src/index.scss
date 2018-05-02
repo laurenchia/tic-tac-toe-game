@@ -9,6 +9,7 @@ ol, ul {
 
 button {
   cursor: pointer;
+  outline: none;
 }
 
 .game-board {
@@ -128,15 +129,20 @@ li {
 
 .move-buttons {
   padding: 8px;
-  background-color: white;
-  color: #ef3e3e;
   border-radius: 20px;
   border-color: #ef3e3e;
   white-space: nowrap;
   overflow: hidden;
-  span {
-      font-weight: bold;
-  }
+  font-weight: bold;
+}
+
+#not-current-move {
+  background-color: white;
+  color: #ef3e3e;
+}
+#current-move {
+  background-color: #ef3e3e;
+  color: white;
 }
 
 .moves-list {
