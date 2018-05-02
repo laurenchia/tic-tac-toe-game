@@ -129,6 +129,8 @@ button {
   border-radius: 20px;
   border-color: #ef3e3e;
   font-weight: bold;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 .play-again {
